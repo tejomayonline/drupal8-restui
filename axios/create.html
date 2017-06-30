@@ -1,0 +1,32 @@
+<html>
+<head>
+
+    <meta name="csrf-token" content="{{csrf_token}}">
+
+</head>
+<body>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var tok = 'admin' + ':' + 'admin';
+        axios.defaults.baseURL = 'http://172.17.0.2/groupzing_d8/web';
+        axios.defaults.headers.common['Authorization'] = 'Basic ' + btoa(tok);
+        axios.defaults.headers.post['Content-Type'] = 'application/hal+json';
+
+
+        axios.get('/node/39', {
+
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    });
+
+</script>
+</html>

@@ -1,0 +1,26 @@
+<html>
+<head>
+
+</head>
+<body>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    var tok = 'admin' + ':' + 'admin';
+    $.ajax({
+        url: 'http://172.17.0.2/groupzing_d8/web/node/36?_format=hal_json',
+        method: 'GET',
+        headers: {
+            'Content-type': 'application/hal+json',
+            'Accept': 'application/hal+json'
+//                    'Content-Type': 'application/json',
+
+           /* 'Authorization': 'Basic ' + btoa(tok)*/
+        },
+        success: function (comment) {
+            console.log(comment);
+        }
+    });
+</script>
+</html>

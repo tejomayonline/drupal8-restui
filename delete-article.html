@@ -1,0 +1,54 @@
+<html>
+<head>
+
+</head>
+<body>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    var tok = 'admin' + ':' + 'admin';
+    function getCsrfToken(callback) {
+        console.log('callback'+callback);
+        $.get('http://172.17.0.2/groupzing_d8/web/rest/session/token')
+            .done(function (data) {
+                var csrfToken = data;
+                console.log('csrf'+data);
+                callback(csrfToken);
+            });
+    }
+
+    function postNode(csrfToken, node) {
+        $.ajax({
+            url: 'http://172.17.0.2/groupzing_d8/web/node/38',
+            method: 'DELETE',
+            headers: {
+                'Content-type': 'application/hal+json',
+//                    'Content-Type': 'application/json',
+                'X-CSRF-Token': csrfToken,
+                'Authorization': 'Basic ' + btoa(tok)
+            },
+            data: JSON.stringify(node),
+            success: function (node) {
+                console.log(node);
+            }
+        });
+    }
+
+    var newNode = {
+        _links: {
+            type: {
+                href: 'http://172.17.0.2/groupzing_d8/web/rest/type/node/article'
+            }
+        },
+
+        title: {
+            value: 'Hiren Saha'
+        }
+    };
+
+    getCsrfToken(function (csrfToken) {
+        postNode(csrfToken, newNode);
+    });
+</script>
+</html>
